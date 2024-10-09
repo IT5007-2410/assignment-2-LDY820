@@ -10,14 +10,12 @@ const initialTravellers = [
   },
 ];
 
-const total_seats = 10;
+const total_seats = 10; //Setting max seats to 10.
 
 function TravellerRow(props) {
   {/*Q3. Placeholder to initialize local variable based on traveller prop.*/}
   let { id, name, phone, bookingTime } = props.traveller;  
   const bookingTimeString = bookingTime instanceof Date ? bookingTime.toLocaleString() : new Date(bookingTime).toLocaleString();
-
-  console.log(id, name, phone, bookingTimeString);
 
   return (
     <tr>
@@ -65,8 +63,7 @@ class Add extends React.Component {
     e.preventDefault();
     /*Q4. Fetch the passenger details from the add form and call bookTraveller()*/
     const form_add = document.forms.addTraveller;
-    console.log(form_add.travellername.value);
-    console.log(form_add.travellernumber.value);
+
     if (this.props.travellersprop.length < total_seats ) {
     this.props.addfunction(form_add.travellername.value,form_add.travellernumber.value);
     form_add.reset();
@@ -97,7 +94,6 @@ class Delete extends React.Component {
     e.preventDefault();
     /*Q5. Fetch the passenger details from the deletion form and call deleteTraveller()*/
     const form = document.forms.deleteTraveller;
-    console.log(form.travellername.value);
 
     this.props.deletefunction(form.travellername.value);
     form.reset();
@@ -179,8 +175,7 @@ class TicketToRide extends React.Component {
 
   bookTraveller(passenger_name , pasenger_number) {
 	    /*Q4. Write code to add a passenger to the traveller state variable.*/
-      console.log("add function", passenger_name, pasenger_number);
-
+ 
       const newTraveller = {
         id: this.state.travellers.length + 1,
         name: passenger_name,
@@ -196,7 +191,7 @@ class TicketToRide extends React.Component {
 
   deleteTraveller(passenger) {
 	  /*Q5. Write code to delete a passenger from the traveller state variable.*/
-    console.log("delete function",passenger);
+
     var new_list = []; //new list after deletion
     this.state.travellers.forEach(element => {
       if (element.name != passenger) { 
@@ -225,17 +220,17 @@ class TicketToRide extends React.Component {
 		{/*Q2 and Q6. Code to call Instance that draws Homepage. Homepage shows Visual Representation of free seats.*/}
 		{/*Q3. Code to call component that Displays Travellers.*/}
     <br></br>
-    {/* {this.state.selector === 1 && <Display travellersprop={this.state.travellers}/>} */}
+    {this.state.selector === 1 && <Display travellersprop={this.state.travellers}/>}
 
 		{/*Q4. Code to call the component that adds a traveller.*/}
-    {/* {this.state.selector === 2 && <Add addfunction={this.bookTraveller}/>} */}
+    {this.state.selector === 2 && <Add addfunction={this.bookTraveller} travellersprop={this.state.travellers}/>}
 
 		{/*Q5. Code to call the component that deletes a traveller based on a given attribute.*/}
-    {/* {this.state.selector === 3 && <Delete deletefunction={this.deleteTraveller}/>} */}
+    {this.state.selector === 3 && <Delete deletefunction={this.deleteTraveller} travellersprop={this.state.travellers}/>}
     
-    <Display travellersprop={this.state.travellers}/>
+    {/* <Display travellersprop={this.state.travellers}/>
     <Add addfunction={this.bookTraveller} travellersprop={this.state.travellers}/>
-    <Delete deletefunction={this.deleteTraveller} travellersprop={this.state.travellers}/>
+    <Delete deletefunction={this.deleteTraveller} travellersprop={this.state.travellers}/> */}
 
 
 	</div>
