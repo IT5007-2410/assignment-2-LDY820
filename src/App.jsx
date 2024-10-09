@@ -67,8 +67,12 @@ class Add extends React.Component {
     const form_add = document.forms.addTraveller;
     console.log(form_add.travellername.value);
     console.log(form_add.travellernumber.value);
+    if (this.props.travellersprop.length < total_seats ) {
     this.props.addfunction(form_add.travellername.value,form_add.travellernumber.value);
     form_add.reset();
+    alert("Entry Added!")} else {
+      alert("Overflow!")
+    }
   }
 
   render() {
@@ -94,8 +98,10 @@ class Delete extends React.Component {
     /*Q5. Fetch the passenger details from the deletion form and call deleteTraveller()*/
     const form = document.forms.deleteTraveller;
     console.log(form.travellername.value);
+
     this.props.deletefunction(form.travellername.value);
     form.reset();
+
   }
 
   render() {
@@ -117,8 +123,8 @@ class Homepage extends React.Component {
   renderButtons = (seats, color, prefix) => {
     // Create an array of buttons based on the number specified
     return Array.from({ length: seats }, (v, i) => (
-      <button key={`${prefix}-${i}`} style={{ backgroundColor: color }}>
-        {`${prefix} Button ${i + 1}`}
+      <button key={`${prefix}-${i}`} style={{ backgroundColor: color, width:'50px',height:'50px'}}>
+        
       </button>
     ));
   };
@@ -228,8 +234,8 @@ class TicketToRide extends React.Component {
     {/* {this.state.selector === 3 && <Delete deletefunction={this.deleteTraveller}/>} */}
     
     <Display travellersprop={this.state.travellers}/>
-    <Add addfunction={this.bookTraveller}/>
-    <Delete deletefunction={this.deleteTraveller}/>
+    <Add addfunction={this.bookTraveller} travellersprop={this.state.travellers}/>
+    <Delete deletefunction={this.deleteTraveller} travellersprop={this.state.travellers}/>
 
 
 	</div>
